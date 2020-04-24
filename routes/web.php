@@ -136,3 +136,16 @@ Route::get('/suggest',function (){
         ]);
     }
 })->name('frontend.suggest');
+
+Route::get('/processing',function (){
+    if (Auth::check()) {
+        $patient = DB::table('patients')
+            ->join('users', 'patients.id', '=', 'users.patient_id')
+            ->select('patients.*', 'users.patient_id as patient_id')
+            ->where('users.id', '=', Auth::id())
+            ->first();
+        return view('frontend.processing', [
+            'patient' => $patient,
+        ]);
+    }
+})->name('frontend.processing');

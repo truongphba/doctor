@@ -50,6 +50,8 @@ class ExaminationController extends Controller
         $examination->patient_id = $request->patient_id;
         $examination->save();
 
+        return redirect()->route('frontend.processing');
+
 
     }
     /**

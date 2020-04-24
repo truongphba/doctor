@@ -5,7 +5,8 @@
         .location {
             display: none;
         }
-        .group-btn{
+
+        .group-btn {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -547,17 +548,18 @@
                 <?php
                 $doctors = \Illuminate\Support\Facades\DB::table('doctors')
                     ->join('examinations', 'doctors.id', '=', 'examinations.doctor_id')
-                    ->where('patient_id',null)
+                    ->where('patient_id', null)
                     ->select('doctors.*')
                     ->get();
                 $doctor = $doctors->take(1)->first();
                 ?>
                 <div class="doctor-calling">
-                   @if($doctors->count() > 0)
+                    @if($doctors->count() > 0)
                         <h2>{{$doctor->name}}</h2>
                         <div style="display: flex;justify-content: center;align-items: center;width: 100%">
                             <div class="doctor-ava">
-                                <img src="https://image.freepik.com/foto-gratis/doctor-sonriendo-estetoscopio_1154-36.jpg">
+                                <img
+                                    src="https://image.freepik.com/foto-gratis/doctor-sonriendo-estetoscopio_1154-36.jpg">
                             </div>
                         </div>
                         <div class="star">
@@ -566,100 +568,42 @@
                             @endfor
                         </div>
                         <p>{{$doctor->specialist}}<br>
-                       <div class="group-btn">
-                           <form method="post" action="{{route('examinations.find')}}">
-                               @csrf
-                               <input type="hidden" name="patient_id" value="{{$patient->id}}">
-                               <a href="skype:{{$doctor->skype}}?call">
-                                   <button type="submit" class="btn btn-primary" id="accept-call" aria-hidden="true" data-backdrop="static"
-                                           data-keyboard="false" data-toggle="modal">Accept
-                                   </button>
-                               </a>
-                           </form>
-                           <a href="{{route('frontend.suggest')}}"><button type="reset" class="btn btn-danger" style="margin-left: 20px">Refuse</button></a>
-                       </div>
-                       @else
+                        <div class="group-btn">
+                            <a href="skype:{{$doctor->skype}}?call">
+                                <button type="button" id="accept-call" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#connect-doctor" data-backdrop="static">Accept
+                                </button>
+                            </a>
+
+                            <a href="{{route('frontend.suggest')}}">
+                                <button type="reset" class="btn btn-danger" style="margin-left: 20px">Refuse</button>
+                            </a>
+                        </div>
+                    @else
                         <h3>Hiện tại không có bác sĩ nào trong ca làm việc, xin vui lòng quay lại sau :<</h3>
                         <button class="btn btn-primary" data-dismiss="modal" style="margin-top: 20px">Xác nhận</button>
-                       @endif
+                    @endif
                 </div>
             </div>
         </div>
     </div>
-{{--    <div class="modal fade" id="show-record" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">--}}
-{{--        <div class="modal-dialog modal-lg">--}}
-{{--            <div class="modal-content">--}}
-{{--                <div class="show-record text-center">--}}
-{{--                    <h2>Medical record</h2>--}}
-{{--                    <table class="table .table-striped text-left">--}}
-{{--                        <thead>--}}
-{{--                        <tr>--}}
-{{--                            <th>#</th>--}}
-{{--                            <th>Symptom</th>--}}
-{{--                            <th>Diagnosis</th>--}}
-{{--                            <th>Medicine</th>--}}
-{{--                            <th>Amount</th>--}}
-{{--                            <th>Using</th>--}}
-{{--                        </tr>--}}
-{{--                        </thead>--}}
-{{--                        <tbody>--}}
-{{--                        <tr>--}}
-{{--                            <td>1</td>--}}
-{{--                            <td>Headache Cough</td>--}}
-{{--                            <td>Cold</td>--}}
-{{--                            <td>Paracetamol 500mg</td>--}}
-{{--                            <td>1</td>--}}
-{{--                            <td>2 times a day</td>--}}
-{{--                        </tr>--}}
-{{--                        <tr>--}}
-{{--                            <td>2</td>--}}
-{{--                            <td>Cough Sore throat Headache</td>--}}
-{{--                            <td>Fever</td>--}}
-{{--                            <td>Paracetamol 500mg</td>--}}
-{{--                            <td>2</td>--}}
-{{--                            <td>2 times a day</td>--}}
-{{--                        </tr>--}}
-{{--                        <tr>--}}
-{{--                            <td>3</td>--}}
-{{--                            <td>Toothache</td>--}}
-{{--                            <td>Toothache</td>--}}
-{{--                            <td>Tetracylin</td>--}}
-{{--                            <td>1 pack</td>--}}
-{{--                            <td>3 times a day after eat</td>--}}
-{{--                        </tr>--}}
-{{--                        </tbody>--}}
-{{--                    </table>--}}
-{{--                    <h3>Voting for your doctor</h3>--}}
-{{--                    <section class='rating-widget'>--}}
 
-{{--                        <!-- Rating Stars Box -->--}}
-{{--                        <div class='rating-stars text-center'>--}}
-{{--                            <ul id='stars'>--}}
-{{--                                <li class='star' title='Poor' data-value='1'>--}}
-{{--                                    <i class='fa fa-star fa-fw'></i>--}}
-{{--                                </li>--}}
-{{--                                <li class='star' title='Fair' data-value='2'>--}}
-{{--                                    <i class='fa fa-star fa-fw'></i>--}}
-{{--                                </li>--}}
-{{--                                <li class='star' title='Good' data-value='3'>--}}
-{{--                                    <i class='fa fa-star fa-fw'></i>--}}
-{{--                                </li>--}}
-{{--                                <li class='star' title='Excellent' data-value='4'>--}}
-{{--                                    <i class='fa fa-star fa-fw'></i>--}}
-{{--                                </li>--}}
-{{--                                <li class='star' title='WOW!!!' data-value='5'>--}}
-{{--                                    <i class='fa fa-star fa-fw'></i>--}}
-{{--                                </li>--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
-{{--                    </section>--}}
-{{--                    <a href="index.php">--}}
-{{--                        <button class="btn btn-primary btn-close">Close</button>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+    <div class="modal fade" id="connect-doctor" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content text-center">
+                <form method="post" action="{{route('examinations.find')}}">
+                    @csrf
+                    <input type="hidden" name="patient_id" value="{{$patient->id}}">
+                    <div class="modal-body text-center">
+                        <i class="fas fa-laptop-medical" style="font-size: 30pt"></i>
+                        <h3>Kết nối đến bác sĩ để nhận<br> đơn thuốc</h3>
+                    </div>
+                    <button type="submit" class="btn btn-success">Kết nối</button>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('script')
     <script src="/frontend/js/rating.js"></script>
