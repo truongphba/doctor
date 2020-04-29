@@ -23,26 +23,27 @@
                 gathered brought</p>
             <?php
             $doctor = DB::table('doctors')
-                ->join('users','doctors.id','=','users.doctor_id')
-                ->select('doctors.*','users.doctor_id as doctor_id')
-                ->where('users.id','=',Auth::id())
+                ->join('users', 'doctors.id', '=', 'users.doctor_id')
+                ->select('doctors.*', 'users.doctor_id as doctor_id')
+                ->where('users.id', '=', Auth::id())
                 ->first();
-            $examinations = \App\Examination::where('doctor_id',$doctor->id)->get();
+            $examinations = \App\Examination::where('doctor_id', $doctor->id)->get();
             ?>
             @if($examinations->count() < 1)
                 <form method="post" action="{{route('examinations.store')}}">
                     @csrf
                     <input type="hidden" name="doctor_id" value="{{$doctor->id}}">
-                    <button class="btn-find-doctor stat-work">Stat work</button>
+                    <button type="submit" class="btn-find-doctor stat-work">Stat work</button>
                 </form>
             @else
-              <form method="post" action="{{route('examinations.destroyDoctor')}}">
-                  @method('DELETE')
-                  @csrf
-                  <button class="btn-find-doctor stop-work"  data-toggle="modal"
-                          data-target="#examination">Stop work
-                  </button>
-              </form>
+                <form method="post" action="{{route('examinations.destroyDoctor')}}">
+                    @method('DELETE')
+                    @csrf
+                    <button class="btn-find-doctor stop-work" data-toggle="modal"
+                            data-target="#examination">Stop work
+                    </button>
+                </form>
+                <a href="{{route('frontend.getExamination')}}"><button class="btn btn-primary mt-2" >Start examination</button></a>
             @endif
         </div>
     </div>

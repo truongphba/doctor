@@ -1,6 +1,8 @@
 <?php
 
+use App\Record;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
@@ -148,4 +150,49 @@ Route::get('/processing',function (){
             'patient' => $patient,
         ]);
     }
+    else{
+        return redirect()->route('frontend.login');
+    }
 })->name('frontend.processing');
+
+Route::get('get-examination','ExaminationController@getExamination')->name('frontend.getExamination');
+Route::post('get-examination','ExaminationController@posttExamination')->name('frontend.postExamination');
+Route::get('medical',function (){
+    if (Auth::check()) {
+        $patient = DB::table('patients')
+            ->join('users', 'patients.id', '=', 'users.patient_id')
+            ->select('patients.*', 'users.patient_id as patient_id')
+            ->where('users.id', '=', Auth::id())
+            ->first();
+
+        $records = Record::where('patient_id',$patient->id)->orderBy('created_at','desc')->get();
+        return view('frontend.medical', [
+            'patient' => $patient,
+            'records' => $records
+        ]);
+    }
+})->name('frontend.medical');
+Route::get('recharge',function (){
+    if (Auth::check()) {
+        $patient = DB::table('patients')
+            ->join('users', 'patients.id', '=', 'users.patient_id')
+            ->select('patients.*', 'users.patient_id as patient_id')
+            ->where('users.id', '=', Auth::id())
+            ->first();
+        return view('frontend.recharge', [
+            'patient' => $patient
+        ]);
+    }
+})->name('frontend.recharge');
+Route::post('recharge',function (Request $request){
+    if (Auth::check()) {
+       DB::table('patients')
+            ->join('users', 'patients.id', '=', 'users.patient_id')
+            ->select('patients.*', 'users.patient_id as patient_id')
+            ->where('users.id', '=', Auth::id())
+            ->limit(1)->increment('wallet',$request->wallet);
+
+
+        return redirect()->route('frontend.index');
+    }
+})->name('frontend.pRecharge');

@@ -91,7 +91,7 @@ class AuthController extends Controller
         $patient->birth = $request->birth;
         $image = $request->file('images');
         $input['imagename'] = time() . '_' . $image->getClientOriginalName();
-        $patient->images = '/upload/' . $input['imagename'];
+        $patient->images = '/uploads/' . $input['imagename'];
         $destinationPath = public_path('/uploads');
         $image->move($destinationPath, $input['imagename']);
         $patient->save();

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Doctor - @yield('title')</title>
@@ -35,3 +36,4 @@
     })
 </script>
 </body>
+</html>
