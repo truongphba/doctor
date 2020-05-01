@@ -136,11 +136,15 @@
                         <button class="btn btn-secondary text-uppercase">Đăng ký</button>
                     </div>
                 </form>
-                <form class="form-doctor" style="display: none" action="{{route('frontend.register.post')}}" method="post" >
+                <form class="form-doctor" style="display: none" action="{{route('frontend.register.post')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label class="text-uppercase">Tên đăng nhập: </label>
                         <input type="text" name="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="text-uppercase">Mật khẩu: </label>
+                        <input type="password" name="password" class="form-control">
                     </div>
                     <div class="form-group">
                         <label class="text-uppercase">Họ và tên: </label>
@@ -159,8 +163,11 @@
                         <input type="text" name="skype" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="text-uppercase">Mật khẩu: </label>
-                        <input type="password" name="password" class="form-control">
+                        <label>Ảnh đại diện</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input customFile" name="images">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
                     </div>
                     <input type="hidden" name="votes" value="5">
                     <input type="hidden" name="wallet" value="0">
@@ -182,8 +189,8 @@
             $('.form-patient').hide();
             $('.form-doctor').show();
         });
-        $('#customFile').change(function() {
-            var filename = $('#customFile').val();
+        $('.customFile').change(function() {
+            var filename = $('.customFile').val();
             $('.custom-file-label').html(filename);
         });
     });

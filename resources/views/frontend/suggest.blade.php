@@ -17,7 +17,7 @@
     <div class="page">
         <div class="container">
             <div class="select-gender text-center">
-                <h2>Select your gender</h2>
+                <h2>Chọn giới tính của bạn</h2>
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="gender" id="male">
@@ -43,7 +43,7 @@
                     <div class="view view-location col-12">
                         <div class="row">
                             <div class="locations-area col-4">
-                                <h4 class="text-center">Check location</h4>
+                                <h4 class="text-center">Chọn bộ phận</h4>
                                 <div id="model-female">
                                     <div id="model-female-front" class="model-body model-woman" style="display: none">
                                         <svg class="model-female-front" viewBox="0 0 168 320"
@@ -417,10 +417,10 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <div onclick="toggleBody()" class="model-controls text-center pt-1">Rotate model</div>
+                                <div onclick="toggleBody()" class="model-controls text-center pt-1">Xoay</div>
                             </div>
                             <div class="symptoms-area col-8">
-                                <h4 class="text-center">Check your symptoms</h4>
+                                <h4 class="text-center">Chọn triệu chứng</h4>
                                 <div class="location head-loca">
                                     <h4 class="text-capitalize">
                                         {{$headLocal->location_name}}
@@ -529,10 +529,10 @@
                             </div>
                         </div>
                         <div class="btn-back-submit">
-                            <button onclick="back()" class="btn btn-outline-dark float-left">Back</button>
+                            <button onclick="back()" class="btn btn-outline-dark float-left">Trở lại</button>
                             <button class="btn btn-outline-dark float-right" aria-hidden="true" data-backdrop="static"
                                     data-keyboard="false" data-toggle="modal" data-target="#doctor-call" type="submit">
-                                Find Doctor
+                                Tìm bác sĩ
                             </button>
 
                         </div>
@@ -558,8 +558,11 @@
                         <h2>{{$doctor->name}}</h2>
                         <div style="display: flex;justify-content: center;align-items: center;width: 100%">
                             <div class="doctor-ava">
-                                <img
-                                    src="https://image.freepik.com/foto-gratis/doctor-sonriendo-estetoscopio_1154-36.jpg">
+                                @if($doctor->images == null)
+                                    <i class="fas fa-user" style=" font-size: 65pt;margin-top: 27px;"></i>
+                                @else
+                                    <img src="{{asset($doctor->images)}}">
+                                @endif
                             </div>
                         </div>
                         <div class="star">
@@ -571,12 +574,12 @@
                         <div class="group-btn">
                             <a href="skype:{{$doctor->skype}}?call">
                                 <button type="button" id="accept-call" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#connect-doctor" data-backdrop="static">Accept
+                                        data-target="#connect-doctor" data-backdrop="static">Đồng ý
                                 </button>
                             </a>
 
                             <a href="{{route('frontend.suggest')}}">
-                                <button type="reset" class="btn btn-danger" style="margin-left: 20px">Refuse</button>
+                                <button type="reset" class="btn btn-danger" style="margin-left: 20px">Từ chối</button>
                             </a>
                         </div>
                     @else

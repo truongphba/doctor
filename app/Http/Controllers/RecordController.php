@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Doctor;
 use App\Examination;
+use App\Patient;
 use App\Record;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -61,10 +63,11 @@ class RecordController extends Controller
         $examination->patient_id = null;
         $examination->save();
 
+        Doctor::where('id', $request->doctor_id)->limit(1)->increment('wallet',2);
+        Patient::where('id', $request->patient_id)->limit(1)->decrement('wallet',2);
         return redirect()->route('frontend.index');
 
     }
-
     /**
      * Display the specified resource.
      *

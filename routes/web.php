@@ -1,5 +1,6 @@
 <?php
 
+use App\Examination;
 use App\Record;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Doctor;
 use App\Location;
 use Illuminate\Support\Facades\DB;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,32 +24,30 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::get('/', function () {
-  if (Auth::check()){
-      $user = DB::table('users')->select('*')->where('users.id','=',Auth::id())->first();
-      $doctor = DB::table('doctors')
-          ->join('users','doctors.id','=','users.doctor_id')
-          ->select('doctors.*','users.doctor_id as doctor_id')
-          ->where('users.id','=',Auth::id())
-          ->first();
-      $patient = DB::table('patients')
-          ->join('users','patients.id','=','users.patient_id')
-          ->select('patients.*','users.patient_id as patient_id')
-          ->where('users.id','=',Auth::id())
-          ->first();
-      if (!is_null($user->doctor_id)){
-          return view('frontend.doctor-index',[
-              'doctor' => $doctor
-          ]);
-      }
-      else if (!is_null($user->patient_id)){
-          return view('frontend.index',[
-              'patient' => $patient
-          ]);
-      }
-  }
-  else{
-      return view('frontend.index');
-  }
+    if (Auth::check()) {
+        $user = DB::table('users')->select('*')->where('users.id', '=', Auth::id())->first();
+        $doctor = DB::table('doctors')
+            ->join('users', 'doctors.id', '=', 'users.doctor_id')
+            ->select('doctors.*', 'users.doctor_id as doctor_id')
+            ->where('users.id', '=', Auth::id())
+            ->first();
+        $patient = DB::table('patients')
+            ->join('users', 'patients.id', '=', 'users.patient_id')
+            ->select('patients.*', 'users.patient_id as patient_id')
+            ->where('users.id', '=', Auth::id())
+            ->first();
+        if (!is_null($user->doctor_id)) {
+            return view('frontend.doctor-index', [
+                'doctor' => $doctor
+            ]);
+        } else if (!is_null($user->patient_id)) {
+            return view('frontend.index', [
+                'patient' => $patient
+            ]);
+        }
+    } else {
+        return view('frontend.index');
+    }
 })->name('frontend.index');
 Route::get('/admin', function () {
     return view('backend.index');
@@ -61,8 +61,8 @@ Route::resources([
     'records' => 'RecordController',
     'examinations' => 'ExaminationController'
 ]);
-Route::post('examination','ExaminationController@find')->name('examinations.find');
-Route::delete('examination','ExaminationController@destroyDoctor')->name('examinations.destroyDoctor');
+Route::post('examination', 'ExaminationController@find')->name('examinations.find');
+Route::delete('examination', 'ExaminationController@destroyDoctor')->name('examinations.destroyDoctor');
 Route::get('login', 'AuthController@login')->name('frontend.login');
 Route::post('login', 'AuthController@postLogin')->name('frontend.login.post');
 Route::get('register', 'AuthController@register')->name('frontend.register');
@@ -70,56 +70,56 @@ Route::post('register', 'AuthController@postRegister')->name('frontend.register.
 Route::post('register_p', 'AuthController@postRegister_p')->name('frontend.register.post_p');
 Route::get('logout', 'AuthController@logout')->name('frontend.logout');
 
-Route::get('/suggest',function (){
-    if (Auth::check()){
+Route::get('/suggest', function () {
+    if (Auth::check()) {
         $patient = DB::table('patients')
-            ->join('users','patients.id','=','users.patient_id')
-            ->select('patients.*','users.patient_id as patient_id')
-            ->where('users.id','=',Auth::id())
+            ->join('users', 'patients.id', '=', 'users.patient_id')
+            ->select('patients.*', 'users.patient_id as patient_id')
+            ->where('users.id', '=', Auth::id())
             ->first();
         $heads = DB::table('symptoms')
             ->join('locations', 'symptoms.location_id', '=', 'locations.id')
             ->select('symptoms.*', 'locations.name as location_name')
-            ->where('location_id',1)
+            ->where('location_id', 1)
             ->get();
         $headLocal = $heads->take(1)->first();
         $eyes = DB::table('symptoms')
             ->join('locations', 'symptoms.location_id', '=', 'locations.id')
             ->select('symptoms.*', 'locations.name as location_name')
-            ->where('location_id',6)
+            ->where('location_id', 6)
             ->get();
         $eyeLocal = $eyes->take(1)->first();
         $noses = DB::table('symptoms')
             ->join('locations', 'symptoms.location_id', '=', 'locations.id')
             ->select('symptoms.*', 'locations.name as location_name')
-            ->where('location_id',5)
+            ->where('location_id', 5)
             ->get();
         $noseLocal = $noses->take(1)->first();
         $ears = DB::table('symptoms')
             ->join('locations', 'symptoms.location_id', '=', 'locations.id')
             ->select('symptoms.*', 'locations.name as location_name')
-            ->where('location_id',2)
+            ->where('location_id', 2)
             ->get();
         $earLocal = $ears->take(1)->first();
         $oralCavitys = DB::table('symptoms')
             ->join('locations', 'symptoms.location_id', '=', 'locations.id')
             ->select('symptoms.*', 'locations.name as location_name')
-            ->where('location_id',11)
+            ->where('location_id', 11)
             ->get();
         $oralCavityLocal = $oralCavitys->take(1)->first();
         $necks = DB::table('symptoms')
             ->join('locations', 'symptoms.location_id', '=', 'locations.id')
             ->select('symptoms.*', 'locations.name as location_name')
-            ->where('location_id',8)
+            ->where('location_id', 8)
             ->get();
         $neckLocal = $necks->take(1)->first();
         $chests = DB::table('symptoms')
             ->join('locations', 'symptoms.location_id', '=', 'locations.id')
             ->select('symptoms.*', 'locations.name as location_name')
-            ->where('location_id',3)
+            ->where('location_id', 3)
             ->get();
         $chestLocal = $chests->take(1)->first();
-        return view('frontend.suggest',[
+        return view('frontend.suggest', [
             'patient' => $patient,
             'heads' => $heads,
             'headLocal' => $headLocal,
@@ -139,25 +139,29 @@ Route::get('/suggest',function (){
     }
 })->name('frontend.suggest');
 
-Route::get('/processing',function (){
+Route::get('/processing', function () {
     if (Auth::check()) {
         $patient = DB::table('patients')
             ->join('users', 'patients.id', '=', 'users.patient_id')
             ->select('patients.*', 'users.patient_id as patient_id')
             ->where('users.id', '=', Auth::id())
             ->first();
+        $record = Record::where('patient_id', $patient->id)->first();
+        $examination = Examination::where('patient_id',null)->first();
         return view('frontend.processing', [
             'patient' => $patient,
+            'record' => $record,
+            'examination' => $examination
         ]);
-    }
-    else{
+
+    } else {
         return redirect()->route('frontend.login');
     }
 })->name('frontend.processing');
 
-Route::get('get-examination','ExaminationController@getExamination')->name('frontend.getExamination');
-Route::post('get-examination','ExaminationController@posttExamination')->name('frontend.postExamination');
-Route::get('medical',function (){
+Route::get('get-examination', 'ExaminationController@getExamination')->name('frontend.getExamination');
+Route::post('get-examination', 'ExaminationController@posttExamination')->name('frontend.postExamination');
+Route::get('medical', function () {
     if (Auth::check()) {
         $patient = DB::table('patients')
             ->join('users', 'patients.id', '=', 'users.patient_id')
@@ -165,14 +169,14 @@ Route::get('medical',function (){
             ->where('users.id', '=', Auth::id())
             ->first();
 
-        $records = Record::where('patient_id',$patient->id)->orderBy('created_at','desc')->get();
+        $records = Record::where('patient_id', $patient->id)->orderBy('created_at', 'desc')->get();
         return view('frontend.medical', [
             'patient' => $patient,
             'records' => $records
         ]);
     }
 })->name('frontend.medical');
-Route::get('recharge',function (){
+Route::get('recharge', function () {
     if (Auth::check()) {
         $patient = DB::table('patients')
             ->join('users', 'patients.id', '=', 'users.patient_id')
@@ -184,13 +188,13 @@ Route::get('recharge',function (){
         ]);
     }
 })->name('frontend.recharge');
-Route::post('recharge',function (Request $request){
+Route::post('recharge', function (Request $request) {
     if (Auth::check()) {
-       DB::table('patients')
+        DB::table('patients')
             ->join('users', 'patients.id', '=', 'users.patient_id')
             ->select('patients.*', 'users.patient_id as patient_id')
             ->where('users.id', '=', Auth::id())
-            ->limit(1)->increment('wallet',$request->wallet);
+            ->limit(1)->increment('wallet', $request->wallet);
 
 
         return redirect()->route('frontend.index');

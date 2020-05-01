@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Doctor;
+use App\Examination;
 use App\Patient;
 use App\User;
 use Illuminate\Contracts\Session\Session;
@@ -66,6 +67,11 @@ class AuthController extends Controller
         $doctor->wallet = $request->wallet;
         $doctor->specialist = $request->specialist;
         $doctor->skype = $request->skype;
+        $image = $request->file('images');
+        $input['imagename'] = time() . '_' . $image->getClientOriginalName();
+        $doctor->images = '/uploads/' . $input['imagename'];
+        $destinationPath = public_path('/uploads');
+        $image->move($destinationPath, $input['imagename']);
         $doctor->save();
         $user = new User();
         $user->doctor_id = $doctor->id;
@@ -109,7 +115,16 @@ class AuthController extends Controller
 
     public function logout()
     {
-
+        $user = DB::table('users')->select('*')->where('users.id', '=', Auth::id())->first();
+        if (!is_null($user->doctor_id)){
+            $doctor = DB::table('doctors')
+                ->join('users', 'doctors.id', '=', 'users.doctor_id')
+                ->select('doctors.*', 'users.doctor_id as doctor_id')
+                ->where('users.id', '=', Auth::id())
+                ->first();
+            $examination = Examination::where('doctor_id', $doctor->id)->first();
+            $examination->delete();
+        }
         Auth::logout();
         return \redirect()->route('frontend.index');
     }

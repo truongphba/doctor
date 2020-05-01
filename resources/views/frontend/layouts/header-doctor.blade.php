@@ -16,33 +16,37 @@
         <div class="col-lg-9 col-md-9 col-12">
             <ul class="menu float-right">
                 <a href="about.html">
-                    <li>About</li>
+                    <li>Giới thiệu</li>
                 </a>
                 <a href="work-list.html">
-                    <li>Work list</li>
+                    <li>Lịch hẹn</li>
                 </a>
                 <li>
                     <div class="account">
                         <div class="dis-flex">
                             <div class="ava">
-                                <i class="fas fa-user"></i>
+                                @if($doctor->images == null)
+                                    <i class="fas fa-user"></i>
+                                @else
+                                    <img src="{{asset($doctor->images)}}">
+                                    @endif
                             </div>
-                            <p>
+                            <p class="account-name">
                                 @if(isset($doctor))
                                     {{$doctor->name}}
                                 @endif
                                 <i class="fas fa-chevron-down"></i></p>
                             <div class="dropdown-menu">
                                 <ul class="sub-account">
-                                    <li><p>Balance: <span>
+                                    <li><p>Số dư: <span>
                                                 @if(isset($doctor))
                                                     {{$doctor->wallet}}
                                                 @endif
                                                     $
                                                 </span></p></li>
-                                    <a href="#"><li data-toggle="modal" data-target="#add-schedule">Add schedule</li></a>
+                                    <a href="#"><li data-toggle="modal" data-target="#add-schedule">Thêm lịch làm việc</li></a>
                                     <a href="{{route('frontend.logout')}}">
-                                        <li>Sign out</li>
+                                        <li>Đăng suất</li>
                                     </a>
                                 </ul>
                             </div>

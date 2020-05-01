@@ -15,48 +15,52 @@
         </div>
 
         @if(\Illuminate\Support\Facades\Auth::check())
-                <div class="col-lg-9 col-md-9 col-12">
-                    <ul class="menu float-right">
-                        <a href="about.html">
-                            <li>About</li>
-                        </a>
-                        <a href="index.php">
-                            <li>Take Appointment</li>
-                        </a>
-                        <li>
-                            <div class="account">
-                                <div class="dis-flex">
-                                    <div class="ava">
+            <div class="col-lg-9 col-md-9 col-12">
+                <ul class="menu float-right">
+                    <a href="about.html">
+                        <li>Giới thiệu</li>
+                    </a>
+                    <a href="index.php">
+                        <li>Đặt lịch hẹn</li>
+                    </a>
+                    <li>
+                        <div class="account">
+                            <div class="dis-flex">
+                                <div class="ava">
+                                    @if($patient->images == null)
                                         <i class="fas fa-user"></i>
-                                    </div>
-                                    <p>{{$patient->name}}
-                                        <i class="fas fa-chevron-down"></i></p>
-                                    <div class="dropdown-menu">
-                                        <ul class="sub-account">
-                                            <li><p>Balance: <span>
+                                    @else
+                                        <img src="{{asset($patient->images)}}">
+                                    @endif
+                                </div>
+                                <p class="account-name">{{$patient->name}}
+                                    <i class="fas fa-chevron-down"></i></p>
+                                <div class="dropdown-menu">
+                                    <ul class="sub-account">
+                                        <li><p>Số dư: <span>
                                                     {{$patient->wallet}}
                                            $</span></p></li>
-                                            <a href="medical.html">
-                                                <li>Medical record</li>
-                                            </a>
-                                            <a href="recharge.html">
-                                                <li>Recharge</li>
-                                            </a>
-                                            <a href="{{route('frontend.logout')}}">
-                                                <li>Sign out</li>
-                                            </a>
-                                        </ul>
-                                    </div>
+                                        <a href="{{route('frontend.medical')}}">
+                                            <li>Đơn thuốc</li>
+                                        </a>
+                                        <a href="{{route('frontend.recharge')}}">
+                                            <li>Nạp tiền</li>
+                                        </a>
+                                        <a href="{{route('frontend.logout')}}">
+                                            <li>Đăng xuất</li>
+                                        </a>
+                                    </ul>
                                 </div>
                             </div>
-                        </li>
-                        <li>
-                            <button class="btn btn-danger">Sos</button>
-                        </li>
-                    </ul>
-                </div>
-            @else
+                        </div>
+                    </li>
+                    <li>
+                        <button class="btn btn-danger">Sos</button>
+                    </li>
+                </ul>
+            </div>
+        @else
 
-            @endif
+        @endif
     </div>
 </div>

@@ -12,7 +12,7 @@
     <div class="page">
         <div class="container text-center">
             <div class="medical-record">
-                <h2>Create new medical records</h2>
+                <h2>Kê đơn thuốc mới</h2>
                 <form method="post" action="{{route('records.store')}}">
                     @csrf
                     <input type="hidden" name="doctor_id" value="{{$doctor->doctor_id}}">
@@ -20,7 +20,7 @@
                     <div class="records">
                         <div class="row">
                             <div class="col-lg-2">
-                                <p>Sysptom</p>
+                                <p>Triệu chứng</p>
                             </div>
                             <div class="col-lg-10">
                                 <div class="form-group">
@@ -32,7 +32,7 @@
                     <div class="records">
                         <div class="row">
                             <div class="col-lg-2">
-                                <p>Diagnosis</p>
+                                <p>Chuẩn đoán</p>
                             </div>
                             <div class="col-lg-10">
                                 <div class="form-group">
@@ -44,25 +44,25 @@
                     <div class="records">
                         <div class="row">
                             <div class="col-lg-2">
-                                <p>Prescription</p>
+                                <p>Đơn thuốc</p>
                             </div>
                             <div class="col-lg-10">
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Medicine Name</label>
+                                            <label>Tên thuốc</label>
                                             <input type="text" name="medicine" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Amount</label>
+                                            <label>Liều</label>
                                             <input type="text" name="amount" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>Using</label>
+                                            <label>Cách dùng</label>
                                             <input type="text" name="using" class="form-control">
                                         </div>
                                     </div>
@@ -75,21 +75,19 @@
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="examination-content">
-                                    <h2>Continue?</h2>
-                                    <p>Your account has just been added 1.8$</p>
-                                    <button type="submit" class="btn btn-primary btn-examnination">Yes</button>
-                                    <a href="{{route('examinations.destroyDoctor')}}"><button class="btn btn-secondary btn-examnination">No</button></a>
+                                    <p>Tài khoản của bạn đã được cộng thêm 2$</p>
+                                    <button type="submit" class="btn btn-success btn-examnination">Đồng ý</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
                 <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#money-come"
-                        aria-hidden="true" data-backdrop="static" data-keyboard="false">Submit
+                        aria-hidden="true" data-backdrop="static" data-keyboard="false">Kê đơn
                 </button>
             </div>
             <div class="patient-info">
-                <h2>Patient information</h2>
+                <h2>Thông tin bệnh nhân</h2>
                 <div class="row">
                     <div class="col-lg-4 col-12">
                         <div class="patient-img">
@@ -99,19 +97,19 @@
                     <div class="col-lg-8 col-12">
                         <table class="table table-infor">
                             <tr>
-                                <td>Fullname</td>
+                                <td>Họ tên</td>
                                 <td>{{$patient->name}}</td>
                             </tr>
                             <tr>
-                                <td>Address</td>
+                                <td>Địa chỉ</td>
                                 <td>{{$patient->address}}</td>
                             </tr>
                             <tr>
-                                <td>Gender</td>
+                                <td>Giới tính</td>
                                 <td>{{$patient->gender}}</td>
                             </tr>
                             <tr>
-                                <td>Date of birth</td>
+                                <td>Ngày sinh</td>
                                 <td>{{$patient->birth}}</td>
                             </tr>
                         </table>
@@ -119,16 +117,16 @@
                 </div>
             </div>
             <div class="old-medical">
-                <h2>OLD MEDICAL RECORDS</h2>
+                <h2>Đơn thuốc cũ</h2>
                 <table class="table .table-striped">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Symptom</th>
-                        <th>Diagnosis</th>
-                        <th>Medicine</th>
-                        <th>Amount</th>
-                        <th>Using</th>
+                        <th>Triệu chứng</th>
+                        <th>Chuẩn đoán</th>
+                        <th>Tên thuốc</th>
+                        <th>Liều</th>
+                        <th>Cách dùng</th>
                     </tr>
                     </thead>
                     <tbody>

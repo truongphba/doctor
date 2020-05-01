@@ -27,17 +27,19 @@
                     <th>Medicine</th>
                     <th>Amount</th>
                     <th>Using</th>
+                    <th>Ngày khám</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($records as $record)
                     <tr>
-                        <td>{{$loop->index+1}}}</td>
+                        <td>{{$loop->index+1}}</td>
                         <td>{{$record->symptom}}</td>
                         <td>{{$record->diagnosis}}</td>
                         <td>{{$record->medicine}}</td>
                         <td>{{$record->amount}}</td>
                         <td>{{$record->using}}</td>
+                        <td>{{$record->created_at}}</td>
                     </tr>
                 @endforeach
                 </tbody>
