@@ -64,7 +64,7 @@
                                                 {{$count_user}}
                                                 <small>Người</small>
                                             </div>
-                                            <div class="widget-description ml-auto text-white">
+                                            <div class="widget-de   scription ml-auto text-white">
                                                 <i class="fa fa-angle-up "></i>
                                                 <span class="pl-1">120.5%</span></div>
                                         </div>
