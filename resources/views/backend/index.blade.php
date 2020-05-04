@@ -28,10 +28,14 @@
                                             <div class="widget-title">Doanh thu</div>
                                             <div class="widget-subtitle text-white">Mục tiêu tháng</div>
                                         </div>
+                                        <?php
+                                            $total_revenue = \Illuminate\Support\Facades\DB::table('revenues')->sum('revenue');
+                                            $count_user = \Illuminate\Support\Facades\DB::table('users')->count();
+                                        ?>
                                         <div class="widget-chart-flex">
                                             <div class="widget-numbers">
-                                                1,000,000,000
-                                                <small>VNĐ</small>
+                                                {{$total_revenue}}
+                                                <small>$</small>
                                             </div>
                                             <div class="widget-description ml-auto text-white">
                                                 <i class="fa fa-angle-up "></i>
@@ -57,7 +61,7 @@
                                         </div>
                                         <div class="widget-chart-flex">
                                             <div class="widget-numbers">
-                                                1283
+                                                {{$count_user}}
                                                 <small>Người</small>
                                             </div>
                                             <div class="widget-description ml-auto text-white">

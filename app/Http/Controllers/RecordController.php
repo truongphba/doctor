@@ -6,6 +6,7 @@ use App\Doctor;
 use App\Examination;
 use App\Patient;
 use App\Record;
+use App\Revenue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -64,7 +65,12 @@ class RecordController extends Controller
         $examination->save();
 
         Doctor::where('id', $request->doctor_id)->limit(1)->increment('wallet',2);
-        Patient::where('id', $request->patient_id)->limit(1)->decrement('wallet',2);
+        Patient::where('id', $request->patient_id)->limit(1)->decrement('wallet',3);
+
+        $revenue = new Revenue();
+        $revenue->revenue = 1;
+        $revenue->save();
+
         return redirect()->route('frontend.index');
 
     }
