@@ -1,6 +1,7 @@
 <?php
 
 use App\Examination;
+use App\Patient;
 use App\Record;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
@@ -227,7 +228,8 @@ Route::post('recharge', function (Request $request) {
             ->first();
         $current_wallet = $patient->wallet;
         $wallet = $current_wallet + $request->wallet;
-        $patient->update(['wallet', $wallet]);
+        Patient::find($patient->id)->update(['wallet',$wallet]);
+
 
         return redirect()->route('frontend.index');
     }
