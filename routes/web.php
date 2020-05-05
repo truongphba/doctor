@@ -249,6 +249,7 @@ Route::get('/about',function (){
 
     return view('frontend.about',[
         'doctor' => $doctor,
-        'patient' => $patient
+        'patient' => $patient,
+        'user' => $user
     ]);
 })->name('frontend.about');
