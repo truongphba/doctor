@@ -154,13 +154,13 @@ class AuthController extends Controller
             $examination->delete();
         }
         Auth::logout();
-        return \redirect()->route('frontend.index');
+        return redirect()->route('frontend.login');
     }
 
     public function logoutAdmin()
     {
         $user = DB::table('users')->select('*')->where('users.id', '=', Auth::id())->first();
         Auth::logout();
-        return \redirect()->route('admin.login');
+        return redirect()->route('admin.login');
     }
 }
