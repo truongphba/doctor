@@ -220,12 +220,15 @@ Route::get('recharge', function () {
 })->name('frontend.recharge');
 Route::post('recharge', function (Request $request) {
     if (Auth::check()) {
-        DB::table('patients')
+        $patient = DB::table('patients')
             ->join('users', 'patients.id', '=', 'users.patient_id')
             ->select('patients.*', 'users.patient_id as patient_id')
             ->where('users.id', '=', Auth::id())
-            ->limit(1)->increment('wallet', $request->wallet);
-
+            ->first();
+        $current_wallet = $patient->wallet;
+        $wallet = $current_wallet + $request->wallet;
+        $patient->wallet = $wallet;
+        $patient->save();
 
         return redirect()->route('frontend.index');
     }
