@@ -6,18 +6,18 @@
 @section('content')
     <div class="top-content">
         <div class="container">
-            <h2>Recharge</h2>
+            <h2>Nập tiền</h2>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Recharge</li>
+                    <li class="breadcrumb-item"><a href="{{route('frontend.index')}}">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Nạp tiền</li>
                 </ol>
             </nav>
         </div>
     </div>
     <div class="about-page">
         <div class="container">
-            <h2 class="title text-center">Recharge Card</h2>
+            <h2 class="title text-center">Thẻ nạp tiền</h2>
             <div class="recharge">
                 <div class="row">
                     <div class="col-lg-4 col-12">
