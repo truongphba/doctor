@@ -1,9 +1,9 @@
-
-{{--@if(!is_null($user->doctor_id))--}}
-{{--    @extends('frontend.layouts.layout-doctor')--}}
-{{--@elseif(!is_null($user->patient_id))--}}
+@if(!is_null($user->doctor_id))
+    @extends('frontend.layouts.layout-doctor')
+@endif
+@if(!is_null($user->patient_id))
     @extends('frontend.layouts.layout')
-{{--@endif--}}
+@endif
 @section('title','About')
 
 @section('content')
@@ -12,7 +12,7 @@
             <h2>Về chúng tôi</h2>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.php">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('frontend.index')}}">Trang chủ</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Về chúng tôi</li>
                 </ol>
             </nav>
