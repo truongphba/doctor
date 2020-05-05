@@ -46,7 +46,7 @@ class RecordController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -64,8 +64,8 @@ class RecordController extends Controller
         $examination->patient_id = null;
         $examination->save();
 
-        Doctor::where('id', $request->doctor_id)->limit(1)->increment('wallet',2);
-        Patient::where('id', $request->patient_id)->limit(1)->decrement('wallet',3);
+        DB::table('doctors')->where('id', $request->doctor_id)->increment('wallet',2);
+        DB::table('patients')->where('id', $request->patient_id)->decrement('wallet',3);
 
         $revenue = new Revenue();
         $revenue->revenue = 1;
