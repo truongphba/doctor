@@ -227,8 +227,7 @@ Route::post('recharge', function (Request $request) {
             ->first();
         $current_wallet = $patient->wallet;
         $wallet = $current_wallet + $request->wallet;
-        $patient->wallet = $wallet;
-        $patient->save();
+        $patient->update(['wallet', $wallet]);
 
         return redirect()->route('frontend.index');
     }
