@@ -64,8 +64,13 @@ class RecordController extends Controller
         $examination->patient_id = null;
         $examination->save();
 
-        DB::table('doctors')->where('id', $request->doctor_id)->increment('wallet',2);
-        DB::table('patients')->where('id', $request->patient_id)->decrement('wallet',3);
+        $doctor_wallet = DB::table('doctors')->where('id', $request->doctor_id)->first()->wallet;
+        $doctor_wallet += 2;
+        DB::table('doctors')->where('id', $request->doctor_id)->update(['wallet' => $doctor_wallet]);
+
+        $patient_wallet = DB::table('patients')->where('id', $request->patient_id)->first()->wallet;
+        $patient_wallet -= 3;
+        DB::table('patients')->where('id', $request->patient_id)->update(['wallet' => $patient_wallet]);
 
         $revenue = new Revenue();
         $revenue->revenue = 1;
@@ -73,6 +78,7 @@ class RecordController extends Controller
         return redirect()->route('frontend.index');
 
     }
+
     /**
      * Display the specified resource.
      *
