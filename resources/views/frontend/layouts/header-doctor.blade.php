@@ -56,7 +56,7 @@ $patients_count = Patient::get()->count();
                                                 </span></p></li>
                                     <a href="#"><li data-toggle="modal" data-target="#add-schedule">Thêm lịch làm việc</li></a>
                                     <a href="{{route('frontend.logout')}}">
-                                        <li>Đăng suất</li>
+                                        <li>Đăng xuất</li>
                                     </a>
                                 </ul>
                             </div>
