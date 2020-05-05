@@ -1,8 +1,8 @@
 
 @if(!is_null($user->doctor_id))
-    @extends('frontend.layouts.layout')
-@elseif(!is_null($user->patient_id))
     @extends('frontend.layouts.layout-doctor')
+@elseif(!is_null($user->patient_id))
+    @extends('frontend.layouts.layout')
 @endif
 @section('title','About')
 

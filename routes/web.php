@@ -235,21 +235,23 @@ Route::post('recharge', function (Request $request) {
     }
 })->name('frontend.pRecharge');
 Route::get('/about',function (){
-    $user = DB::table('users')->select('*')->where('users.id', '=', Auth::id())->first();
-    $doctor = DB::table('doctors')
-        ->join('users', 'doctors.id', '=', 'users.doctor_id')
-        ->select('doctors.*', 'users.doctor_id as doctor_id')
-        ->where('users.id', '=', Auth::id())
-        ->first();
-    $patient = DB::table('patients')
-        ->join('users', 'patients.id', '=', 'users.patient_id')
-        ->select('patients.*', 'users.patient_id as patient_id')
-        ->where('users.id', '=', Auth::id())
-        ->first();
+  if (Auth::check()){
+      $user = DB::table('users')->select('*')->where('users.id', '=', Auth::id())->first();
+      $doctor = DB::table('doctors')
+          ->join('users', 'doctors.id', '=', 'users.doctor_id')
+          ->select('doctors.*', 'users.doctor_id as doctor_id')
+          ->where('users.id', '=', Auth::id())
+          ->first();
+      $patient = DB::table('patients')
+          ->join('users', 'patients.id', '=', 'users.patient_id')
+          ->select('patients.*', 'users.patient_id as patient_id')
+          ->where('users.id', '=', Auth::id())
+          ->first();
 
-    return view('frontend.about',[
-        'doctor' => $doctor,
-        'patient' => $patient,
-        'user' => $user
-    ]);
+      return view('frontend.about',[
+          'doctor' => $doctor,
+          'patient' => $patient,
+          'user' => $user
+      ]);
+  }
 })->name('frontend.about');
