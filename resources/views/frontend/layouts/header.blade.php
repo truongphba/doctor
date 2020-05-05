@@ -1,3 +1,13 @@
+<?php
+
+use App\Doctor;
+use App\Patient;
+
+
+$doctors_count = Doctor::get()->count();
+$patients_count = Patient::get()->count();
+
+?>
 <div class="header">
     <div class="row">
         <div class="col-lg-3 col-md-3 col-12">
@@ -41,7 +51,7 @@
                                                     {{$patient->wallet}}
                                            $</span></p></li>
                                         <a href="{{route('frontend.medical')}}">
-                                            <li>Đơn thuốc</li>
+                                            <li>Đơn thuốc cũ</li>
                                         </a>
                                         <a href="{{route('frontend.recharge')}}">
                                             <li>Nạp tiền</li>
@@ -60,7 +70,12 @@
                 </ul>
             </div>
         @else
-
         @endif
     </div>
 </div>
+@if(\Illuminate\Support\Facades\Auth::check())
+    <div class="user-numbers">
+        <p><i class="fas fa-user-nurse"></i> Bác sĩ: <span>{{$doctors_count}}</span></p>
+        <p><i class="fas fa-user"></i> Bệnh nhân: <span>{{$patients_count}}</span></p>
+    </div>
+@endif

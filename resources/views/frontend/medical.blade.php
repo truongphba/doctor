@@ -1,7 +1,11 @@
 @extends('frontend.layouts.layout')
 @section('title','Records')
 @section('style')
-
+    <style>
+        .copy-right {
+            display: none;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="top-content">

@@ -70,7 +70,6 @@ class RecordController extends Controller
         $revenue = new Revenue();
         $revenue->revenue = 1;
         $revenue->save();
-
         return redirect()->route('frontend.index');
 
     }

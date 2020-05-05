@@ -11,6 +11,9 @@
             justify-content: center;
             align-items: center;
         }
+        .gender{
+            margin-bottom: 350px;
+        }
     </style>
 @endsection
 @section('content')

@@ -11,6 +11,9 @@
         main{
             height: 100%;
         }
+        .home-page{
+            height: 100%;
+        }
     </style>
 @endsection
 

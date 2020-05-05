@@ -90,9 +90,11 @@
                 <h2>Thông tin bệnh nhân</h2>
                 <div class="row">
                     <div class="col-lg-4 col-12">
-                        <div class="patient-img">
-                            <img src="{{asset($patient->images)}}">
-                        </div>
+                        @if($patient->images != null)
+                            <div class="patient-img">
+                                <img src="{{asset($patient->images)}}">
+                            </div>
+                        @endif
                     </div>
                     <div class="col-lg-8 col-12">
                         <table class="table table-infor">

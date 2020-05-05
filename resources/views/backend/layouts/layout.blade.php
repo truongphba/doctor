@@ -15,6 +15,12 @@
     <meta name="msapplication-tap-highlight" content="no">
 
     <link href="/backend/main.87c0748b313a1dda75f5.css" rel="stylesheet">
+
+    <style>
+        .rounded-circle {
+            height: 42px;
+        }
+    </style>
 </head>
 <body>
 <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">

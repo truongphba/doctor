@@ -1,8 +1,36 @@
+<?php
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+if (Auth::check()) {
+    $user = DB::table('users')->select('*')->where('users.id', '=', Auth::id())->first();
+    $doctor = DB::table('doctors')
+        ->join('users', 'doctors.id', '=', 'users.doctor_id')
+        ->select('doctors.*', 'users.doctor_id as doctor_id')
+        ->where('users.id', '=', Auth::id())
+        ->first();
+    $patient = DB::table('patients')
+        ->join('users', 'patients.id', '=', 'users.patient_id')
+        ->select('patients.*', 'users.patient_id as patient_id')
+        ->where('users.id', '=', Auth::id())
+        ->first();
+    if (!is_null($user->doctor_id)) {
+        $avatar = $doctor->images;
+        $name = $doctor->name;
+    } else if (!is_null($user->patient_id)) {
+        $avatar = $patient->images;
+        $name = $patient->name;
+    }
+}
+?>
 <div class="app-header header-shadow">
     <div class="app-header__logo">
-        <a href="{{route('admin')}}"><div class="logo-src">
+        <a href="{{route('admin')}}">
+            <div class="logo-src">
                 <img style="width: 50px;height: auto" src="/backend/assets/images/logo.png">
-            </div></a>
+            </div>
+        </a>
         <div class="header__pane ml-auto">
             <div>
                 <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
@@ -69,7 +97,7 @@
                             <div class="btn-group">
                                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                    class="p-0 btn">
-                                    <img width="42" class="rounded-circle" src="/backend/assets/images/ava-admin.jpg" alt="">
+                                    <img width="42" class="rounded-circle" src="{{asset($avatar)}}" alt="">
                                     <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                 </a>
                                 <div tabindex="-1" role="menu" aria-hidden="true"
@@ -83,19 +111,23 @@
                                                     <div class="widget-content-wrapper">
                                                         <div class="widget-content-left mr-3">
                                                             <img width="42" class="rounded-circle"
-                                                                 src="/backend/assets/images/ava-admin.jpg"
+                                                                 src="{{asset($avatar)}}"
                                                                  alt="">
                                                         </div>
                                                         <div class="widget-content-left">
-                                                            <div class="widget-heading">Thu Huong
+                                                            <div class="widget-heading">{{$name}}
                                                             </div>
                                                             <div class="widget-subheading opacity-8">Quản trị viên
                                                             </div>
                                                         </div>
                                                         <div class="widget-content-right mr-2">
-                                                            <button class="btn-pill btn-shadow btn-shine btn btn-focus">
-                                                                Logout
-                                                            </button>
+                                                            <form action="{{route('backend.logout')}}">
+                                                                @csrf
+                                                                <button type="submit"
+                                                                    class="btn-pill btn-shadow btn-shine btn btn-focus">
+                                                                    Logouts
+                                                                </button>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -144,13 +176,15 @@
                                     <div class="grid-menu grid-menu-2col">
                                         <div class="no-gutters row">
                                             <div class="col-sm-6">
-                                                <button class="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning">
+                                                <button
+                                                    class="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-warning">
                                                     <i class="pe-7s-chat icon-gradient bg-amy-crisp btn-icon-wrapper mb-2"></i>
                                                     Message Inbox
                                                 </button>
                                             </div>
                                             <div class="col-sm-6">
-                                                <button class="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-danger">
+                                                <button
+                                                    class="btn-icon-vertical btn-transition btn-transition-alt pt-2 pb-2 btn btn-outline-danger">
                                                     <i class="pe-7s-ticket icon-gradient bg-love-kiss btn-icon-wrapper mb-2"></i>
                                                     <b>Support Tickets</b>
                                                 </button>
@@ -171,7 +205,7 @@
                         </div>
                         <div class="widget-content-left  ml-3 header-user-info">
                             <div class="widget-heading">
-                                Thu Hương
+                                {{$name}}
                             </div>
                             <div class="widget-subheading">
                                 Quản trị viên
