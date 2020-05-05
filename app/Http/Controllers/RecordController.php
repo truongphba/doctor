@@ -64,8 +64,8 @@ class RecordController extends Controller
         $examination->patient_id = null;
         $examination->save();
 
-        Doctor::where((int)'id', (int)$request->doctor_id)->limit(1)->increment('wallet',2);
-        Patient::where((int)'id', (int)$request->patient_id)->limit(1)->decrement('wallet',3);
+        Doctor::where('id', $request->doctor_id)->limit(1)->increment('wallet',2);
+        Patient::where('id', $request->patient_id)->limit(1)->decrement('wallet',3);
 
         $revenue = new Revenue();
         $revenue->revenue = 1;
