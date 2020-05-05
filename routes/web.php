@@ -47,7 +47,7 @@ Route::get('/', function () {
             ]);
         }
     } else {
-        return view('frontend.index');
+        return view('frontend.login');
     }
 })->name('frontend.index');
 Route::get('/admin', function () {
@@ -247,11 +247,14 @@ Route::get('/about',function (){
           ->select('patients.*', 'users.patient_id as patient_id')
           ->where('users.id', '=', Auth::id())
           ->first();
-
-      return view('frontend.about',[
-          'doctor' => $doctor,
-          'patient' => $patient,
-          'user' => $user
-      ]);
+      if (!is_null($user->doctor_id)) {
+          return view('frontend.doctor_about', [
+              'doctor' => $doctor
+          ]);
+      } else if (!is_null($user->patient_id)) {
+          return view('frontend.about', [
+              'patient' => $patient
+          ]);
+      }
   }
 })->name('frontend.about');

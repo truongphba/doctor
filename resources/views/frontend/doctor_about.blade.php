@@ -1,5 +1,5 @@
 
-@extends('frontend.layouts.layout')
+@extends('frontend.layouts.layout-doctor')
 
 @section('title','About')
 
@@ -98,3 +98,4 @@
     </div>
 
 @endsection
+
