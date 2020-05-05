@@ -25,7 +25,7 @@ $patients_count = Patient::get()->count();
         </div>
         <div class="col-lg-9 col-md-9 col-12">
             <ul class="menu float-right">
-                <a href="about.html">
+                <a href="{{route('frontend.about')}}">
                     <li>Giới thiệu</li>
                 </a>
                 <a href="work-list.html">
