@@ -122,7 +122,8 @@
                     <div class="form-group">
                         <label class="text-uppercase">Tên Skype: </label>
                         <input type="text" name="skype" class="form-control">
-                        <p class="skype-register">(Đăng nhập hoặc hoặc đăng ký tài khoản Skype để lấy tên Skype! <a href="https://web.skype.com/">Truy cập ngay Skype?</a>)</p>
+
+                        <p class="skype-register">Đăng nhập hoặc hoặc đăng ký tài khoản Skype để lấy tên Skype!(Setting -> Account&Profile -> Skype Name) <a href="https://web.skype.com/">Truy cập ngay Skype?</a></p>
                     </div>
                     <div class="form-group">
                         <label>Ảnh đại diện</label>
