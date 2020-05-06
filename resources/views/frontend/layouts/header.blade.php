@@ -30,7 +30,7 @@ $patients_count = Patient::get()->count();
                     <a href="{{route('frontend.about')}}">
                         <li>Giới thiệu</li>
                     </a>
-                    <a href="index.php">
+                    <a href="#">
                         <li>Đặt lịch hẹn</li>
                     </a>
                     <li>
