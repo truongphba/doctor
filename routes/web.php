@@ -104,7 +104,7 @@ Route::get('/suggest', function () {
             ->where('users.id', '=', Auth::id())
             ->first();
         if ($patient->wallet < 3) {
-            return redirect()->back()->with('thongbao', 'Số dư không đủ để thực hiện');
+            return redirect()->route('frontend.index')->with('thongbao', 'Số dư không đủ để thực hiện');
         } else {
             $heads = DB::table('symptoms')
                 ->join('locations', 'symptoms.location_id', '=', 'locations.id')
